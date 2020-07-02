@@ -20,7 +20,14 @@
         }
         else
         {
-            return ($optional ? ("<b style=\"color: darkorange;\">OPTIONAL</b>") : ("<b style=\"color: red;\">FAIL</b>")) . " $description - <code>'$excepted'</code> must be same as <code>'$actual'</code><br/>";
+            $error = error_get_last(); $error_message = '';
+
+            if ($error !== null)
+            {
+                $error_message = $error['message'];
+            }
+
+            return ($optional ? ("<b style=\"color: darkorange;\">OPTIONAL</b>") : ("<b style=\"color: red;\">FAIL</b>")) . " $description - <b>Required:</b> <code>'$excepted'</code> must be same as <b>Actual:</b> <code>'$actual'</code><br/><b>ERROR: </b><code>$error_message</code><br/>";
         }
     }
 ?><!DOCTYPE html>
@@ -91,6 +98,7 @@
                     <?= same('BulkGate Encode', json_decode('"BulkGate Encode"'), 'JSON decode') ?>
                     <?= same(true, function_exists('apache_request_headers'), 'Function: apache_request_headers', true) ?>
                     <?= same(true, function_exists('array_change_key_case'), 'Function: array_change_key_case') ?>
+                    <?= same('{"message":"BulkGate API"}', file_get_contents('https://portal.bulkgate.com/api/welcome'), 'Portal connection ') ?>
                 </p>
                 <h2><?php
                     if ($tests === $success)
