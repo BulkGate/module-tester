@@ -57,7 +57,7 @@
     </header>
     <main>
         <section>
-            <h1>BulkGate Module Tester</h1>
+            <h1 data-large>BulkGate Module Tester</h1>
             <p data-description>
                 <?= 'PHP VERSION: <b>' . phpversion() . '</b><br/>' ?>
                 <?= same(true, PHP_VERSION_ID >= 50300, 'PHP >= 5.3 version') ?>
